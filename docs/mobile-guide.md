@@ -1,6 +1,10 @@
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 # Mobile Development Guide
 
 Guidelines for contributing to the GuildPass Mobile application.
+
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
 
 ## Development Environment
 
@@ -8,13 +12,18 @@ Guidelines for contributing to the GuildPass Mobile application.
 2. **Simulators**: Install Xcode (iOS) or Android Studio (Android) for local emulation.
 3. **Node Version**: Use Node.js 18 or 20.
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ## Component Development
 
 When creating new components:
+
 - Place them in `src/components/` if they are reusable.
 - Use `NativeWind` for styling.
 - Ensure components handle `isLoading` and `error` states gracefully.
 - Follow the existing pattern of using functional components and hooks.
+
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
 
 ## Adding a New Feature
 
@@ -23,6 +32,8 @@ When creating new components:
 3. Create a new screen in `app/`.
 4. Update navigation if necessary.
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ## Testing Strategy
 
 - **Unit Tests**: Test utility functions and hooks using Vitest.
@@ -30,20 +41,25 @@ When creating new components:
 - **Mocking**: Always mock the `@guildpass/sdk` responses in tests to avoid network calls.
 - **Location**: Place tests in the `tests/` directory.
 
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 ## Common Tasks
 
 ### Updating the SDK
+
 ```bash
 pnpm update @guildpass/sdk
 ```
 
 ### Running Linting
+
 ```bash
 pnpm lint
 pnpm format
 ```
 
 ### Type Checking
+
 ```bash
 pnpm typecheck
 ```

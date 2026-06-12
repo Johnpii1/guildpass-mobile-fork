@@ -82,12 +82,12 @@ The application is built on a robust, feature-driven foundation designed for lon
 
 ### Project structure
 
-| Path | Purpose |
-|---|---|
-| `app/` | Expo Router file-based pages and layouts |
-| `src/` | Feature modules, hooks, stores, and services |
-| `docs/` | Architecture and integration guides |
-| `tests/` | Vitest unit tests |
+| Path     | Purpose                                      |
+| -------- | -------------------------------------------- |
+| `app/`   | Expo Router file-based pages and layouts     |
+| `src/`   | Feature modules, hooks, stores, and services |
+| `docs/`  | Architecture and integration guides          |
+| `tests/` | Vitest unit tests                            |
 
 ## 🧪 Testing
 

@@ -1,6 +1,10 @@
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 # Integration Guide
 
 How to integrate and extend the GuildPass Mobile application.
+
+<!-- GuildPass Mobile: Informational section content header block. -->
 
 ## SDK Integration
 
@@ -13,6 +17,8 @@ import { guildPassClient } from "@/lib/guildpassClient";
 
 const data = await guildPassClient.guilds.getGuild({ guildId: "123" });
 ```
+
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
 
 ## Environment Configuration
 
@@ -29,12 +35,17 @@ Configuration is managed via `app.json` and Expo Constants.
 }
 ```
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ## Adding Custom Gating Logic
 
 If you need to add custom gating logic that isn't provided by the SDK:
+
 1. Add a utility function in `src/utils/validation.ts`.
 2. Wrap the SDK call in a custom hook in `src/features/access/`.
 3. Update the `AccessCheck` screen to include the new logic.
+
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
 
 ## Theming
 

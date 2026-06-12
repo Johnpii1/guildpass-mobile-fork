@@ -1,12 +1,19 @@
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 # GrantFox Campaign Tasks — GuildPass Mobile
 
 This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ## 🟢 Ready to Contribute
 
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 ### TASK-MOB-001: Add loading skeleton to the membership dashboard screen
+
 - **Difficulty**: Easy
 - **Labels**: `good first issue`, `ui`
 - **Description**: The membership dashboard screen shows a blank screen while data loads. Add a NativeWind skeleton loader that matches the layout of the loaded content.
@@ -20,7 +27,10 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ### TASK-MOB-002: Add unit tests for the Zustand membership store
+
 - **Difficulty**: Easy–Medium
 - **Labels**: `good first issue`, `tests`, `state`
 - **Description**: The Zustand membership store has no unit tests. Add Vitest tests covering state transitions (loading, success, error).
@@ -34,7 +44,10 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 ### TASK-MOB-003: Improve accessibility on the role badge component
+
 - **Difficulty**: Easy
 - **Labels**: `good first issue`, `a11y`, `ui`
 - **Description**: Role badges (admin, member, contributor) are not announced correctly by screen readers. Add `accessibilityLabel` props.
@@ -47,7 +60,10 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ### TASK-MOB-004: Add a CI workflow for tests and type-checking
+
 - **Difficulty**: Easy
 - **Labels**: `good first issue`, `tests`
 - **Description**: Add a GitHub Actions workflow that runs `pnpm typecheck`, `pnpm lint`, and `pnpm test:run` on every push and PR.
@@ -61,7 +77,10 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Documentation section layout header reference. -->
+
 ### TASK-MOB-005: Write the integration guide for using @guildpass/sdk in a new Expo project
+
 - **Difficulty**: Easy
 - **Labels**: `good first issue`, `documentation`
 - **Description**: The `docs/integration-guide.md` is sparse. Expand it with step-by-step instructions for installing `@guildpass/sdk` in a new Expo project, initialising the client, and performing an access check.
@@ -75,6 +94,8 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
+<!-- GuildPass Mobile: Informational section content header block. -->
+
 ## 🟡 Planned (not yet open)
 
 - Add WalletConnect integration screen
@@ -84,4 +105,4 @@ This document lists tasks suitable for **GrantFox campaign contributions**.
 
 ---
 
-*To apply for a task, visit [GrantFox](https://contribute.grantfox.xyz) or comment on the linked GitHub issue.*
+_To apply for a task, visit [GrantFox](https://contribute.grantfox.xyz) or comment on the linked GitHub issue._

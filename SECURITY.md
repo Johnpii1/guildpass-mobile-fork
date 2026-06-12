@@ -2,9 +2,9 @@
 
 ## Supported Versions
 
-| Version | Supported |
-|---|---|
-| 1.0.x (main) | ✅ Yes |
+| Version      | Supported |
+| ------------ | --------- |
+| 1.0.x (main) | ✅ Yes    |
 
 ## Reporting a Vulnerability
 
@@ -21,6 +21,7 @@ If you discover a security vulnerability, **do not** open a public GitHub issue.
 This repository is a React Native / Expo mobile application.
 
 **In-scope concerns:**
+
 - Exposure of wallet private keys or mnemonics in logs, AsyncStorage, or app state
 - Authentication or access-gate bypass via deep links or URL schemes
 - Insecure storage of sensitive user data on device
@@ -28,6 +29,7 @@ This repository is a React Native / Expo mobile application.
 - XSS-equivalent attacks via WebView components (if used)
 
 **Out-of-scope:**
+
 - Vulnerabilities in guildpass-core backend — report to that repo
 - Expo SDK / React Native platform vulnerabilities — report to their maintainers
 - Physical device security (e.g., screen lock bypass)

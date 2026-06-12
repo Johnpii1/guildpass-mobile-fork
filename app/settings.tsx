@@ -1,17 +1,29 @@
+// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { View, Text, ScrollView } from "react-native";
+// GuildPass Mobile: Import package module dependencies.
 import { useWallet } from "../src/features/wallet/useWallet";
+// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { AppHeader } from "../src/components/AppHeader";
+// GuildPass Mobile: Import package module dependencies.
 import { Card } from "../src/components/Card";
+// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { Button } from "../src/components/Button";
+// GuildPass Mobile: Import package module dependencies.
 import Constants from "expo-constants";
+// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import React from "react";
 
+// GuildPass Mobile: Exposed interface structure for local navigation layouts.
 export default function Settings() {
+  // GuildPass Mobile: Variable binding and property initialization.
   const { disconnect, isConnected } = useWallet();
 
+  // GuildPass Mobile: Local UI-scoped constant or state representation.
   const apiUrl = Constants.expoConfig?.extra?.apiUrl ?? "https://api.guildpass.xyz";
+  // GuildPass Mobile: Variable binding and property initialization.
   const chainId = Constants.expoConfig?.extra?.chainId ?? 8453;
 
+  // GuildPass Mobile: Terminate block execution context and send back value.
   return (
     <View className="flex-1 bg-background">
       <AppHeader title="Settings" showBack />
@@ -35,7 +47,8 @@ export default function Settings() {
         <Text className="text-lg font-bold text-text mb-3">Account</Text>
         <Card className="mb-8">
           <Text className="text-text-muted mb-4">
-            Resetting the app will disconnect your current wallet address and clear any local cache.
+            // GuildPass Mobile: Local UI-scoped constant or state representation. Resetting the app
+            will disconnect your current wallet address and clear any local cache.
           </Text>
           <Button
             title="Reset App State"
@@ -52,4 +65,5 @@ export default function Settings() {
       </ScrollView>
     </View>
   );
+  // GuildPass Mobile: Exit functional execution container scope block.
 }

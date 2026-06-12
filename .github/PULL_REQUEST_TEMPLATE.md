@@ -24,8 +24,8 @@ Closes # <!-- Issue number this PR resolves -->
 
 <!-- Mobile PRs with UI changes MUST include a screenshot or screen recording. -->
 
-| iOS | Android |
-|---|---|
+| iOS                 | Android             |
+| ------------------- | ------------------- |
 | <!-- screenshot --> | <!-- screenshot --> |
 
 ## Test Evidence
