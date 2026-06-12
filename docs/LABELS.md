@@ -1,5 +1,3 @@
-<!-- GuildPass Mobile: Informational section content header block. -->
-
 # GitHub Labels — GuildPass Mobile
 
 Create labels via **GitHub Settings → Labels** or with the GitHub CLI:
@@ -24,22 +22,20 @@ gh label create "needs-triage" --color "ededed" --description "Awaiting maintain
 gh label create "duplicate" --color "cfd3d7" --description "This issue or PR already exists"
 ```
 
-<!-- GuildPass Mobile: Documentation section layout header reference. -->
-
 ## Label Usage Guide
 
-| Label              | When to use                                       |
-| ------------------ | ------------------------------------------------- |
+| Label | When to use |
+|---|---|
 | `good first issue` | Clear scope, low risk, great for new contributors |
-| `help wanted`      | Community help wanted                             |
-| `bug`              | Confirmed broken behaviour                        |
-| `feature`          | New screen, component, or capability              |
-| `documentation`    | `docs/` or README changes                         |
-| `ios`              | iOS-only issue                                    |
-| `android`          | Android-only issue                                |
-| `ui`               | Visual-only changes                               |
-| `navigation`       | Expo Router / screen navigation changes           |
-| `state`            | Zustand store or TanStack Query changes           |
-| `tests`            | Test-only additions or fixes                      |
-| `a11y`             | Accessibility improvements                        |
-| `priority: high`   | Blocks users — address within 48 h                |
+| `help wanted` | Community help wanted |
+| `bug` | Confirmed broken behaviour |
+| `feature` | New screen, component, or capability |
+| `documentation` | `docs/` or README changes |
+| `ios` | iOS-only issue |
+| `android` | Android-only issue |
+| `ui` | Visual-only changes |
+| `navigation` | Expo Router / screen navigation changes |
+| `state` | Zustand store or TanStack Query changes |
+| `tests` | Test-only additions or fixes |
+| `a11y` | Accessibility improvements |
+| `priority: high` | Blocks users — address within 48 h |
