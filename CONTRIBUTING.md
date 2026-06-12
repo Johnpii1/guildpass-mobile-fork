@@ -41,6 +41,7 @@ By participating you agree to our [Code of Conduct](./CODE_OF_CONDUCT.md).
 4. Wait for a maintainer to assign it before starting.
 
 Direct GitHub filters:
+
 - [`good first issue`](https://github.com/Adamantine-Guild/guildpass-mobile/issues?q=label%3A%22good+first+issue%22)
 - [`help wanted`](https://github.com/Adamantine-Guild/guildpass-mobile/issues?q=label%3A%22help+wanted%22)
 
@@ -79,12 +80,12 @@ pnpm android  # Android emulator
 
 ### Project structure
 
-| Path | Purpose |
-|---|---|
-| `app/` | Expo Router file-based pages and layouts |
-| `src/` | Feature modules, hooks, Zustand stores, services |
-| `docs/` | Architecture and integration guides |
-| `tests/` | Vitest unit tests |
+| Path     | Purpose                                          |
+| -------- | ------------------------------------------------ |
+| `app/`   | Expo Router file-based pages and layouts         |
+| `src/`   | Feature modules, hooks, Zustand stores, services |
+| `docs/`  | Architecture and integration guides              |
+| `tests/` | Vitest unit tests                                |
 
 ---
 

@@ -39,15 +39,19 @@ Instances of abusive, harassing, or otherwise unacceptable behaviour may be repo
 ## Enforcement Guidelines
 
 ### 1. Correction
+
 **Consequence**: A private, written warning from community leaders.
 
 ### 2. Warning
+
 **Consequence**: A warning with consequences for continued behaviour.
 
 ### 3. Temporary Ban
+
 **Consequence**: A temporary ban from any sort of interaction or public communication.
 
 ### 4. Permanent Ban
+
 **Consequence**: A permanent ban from any sort of public interaction within the community.
 
 ## Attribution
