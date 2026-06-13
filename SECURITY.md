@@ -12,7 +12,7 @@ If you discover a security vulnerability, **do not** open a public GitHub issue.
 
 ### How to report
 
-1. **Email** **maintainers@guildpass.xyz** with subject `[SECURITY] guildpass-mobile — <brief description>`.
+1. **Email** **cerealboxx123@gmail.com** with subject `[SECURITY] guildpass-mobile — <brief description>`.
 2. Include a description, steps to reproduce, and potential impact.
 3. We will acknowledge receipt within **72 hours** and provide an assessment within **7 days**.
 

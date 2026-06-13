@@ -131,4 +131,4 @@ pnpm test:run    # All tests must pass
 ## Communication
 
 - GitHub Issues: preferred for task discussion and bug reports
-- Contact: maintainers@guildpass.xyz
+- Contact: cerealboxx123@gmail.com
