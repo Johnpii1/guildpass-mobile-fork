@@ -44,14 +44,12 @@ export default function AccessCheck() {
     // GuildPass Mobile: Exit functional execution container scope block.
   } | null>(null);
 
-  // GuildPass Mobile: Local UI-scoped constant or state representation.
-  const { checkAccess } = useAccessCheck();
-  // GuildPass Mobile: Variable binding and property initialization.
+  const checkParamsNonNull = checkParams || { walletAddress: "", guildId: "", resourceId: "" };
   const {
     data: result,
     isLoading,
     error,
-  } = checkAccess(checkParams || { walletAddress: "", guildId: "", resourceId: "" });
+  } = useAccessCheck(checkParamsNonNull);
 
   useEffect(() => {
     const rawPayload = Array.isArray(qrPayload) ? qrPayload[0] : qrPayload;

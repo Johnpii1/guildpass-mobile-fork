@@ -48,9 +48,11 @@ vi.mock("../src/features/access/qrPayload", () => ({
   parseAccessQrPayload: vi.fn(),
 }));
 
+// eslint-disable-next-line import/first
 import { render } from "@testing-library/react-native";
+// eslint-disable-next-line import/first
 import { useCameraPermissions } from "expo-camera";
-import { parseAccessQrPayload } from "../src/features/access/qrPayload";
+// eslint-disable-next-line import/first
 import AccessScanner from "../app/access-scanner";
 
 describe("AccessScanner", () => {

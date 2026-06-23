@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import { useCameraPermissions } from "expo-camera";
+// eslint-disable-next-line import/no-unresolved
 import { BarCodeScanningResult, Camera, CameraType } from "expo-camera/legacy";
 import { AppHeader } from "../src/components/AppHeader";
 import { Button } from "../src/components/Button";
