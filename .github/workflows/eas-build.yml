@@ -38,14 +38,12 @@ jobs:
           version: 8
 
       - name: Checkout SDK
-        uses: actions/checkout@v4
-        with:
-          repository: Adamantine-Guild/guildpass-sdk
-          path: ../guildpass-sdk
+        run: |
+          git clone --depth 1 https://github.com/Adamantine-Guild/guildpass-sdk.git "${{ github.workspace }}/../guildpass-sdk"
 
       - name: Apply SDK patches
         run: |
-          cd ../guildpass-sdk
+          cd "${{ github.workspace }}/../guildpass-sdk"
           git apply "${{ github.workspace }}/patches/guildpass-sdk.patch"
 
       - name: Install dependencies
@@ -80,14 +78,12 @@ jobs:
           version: 8
 
       - name: Checkout SDK
-        uses: actions/checkout@v4
-        with:
-          repository: Adamantine-Guild/guildpass-sdk
-          path: ../guildpass-sdk
+        run: |
+          git clone --depth 1 https://github.com/Adamantine-Guild/guildpass-sdk.git "${{ github.workspace }}/../guildpass-sdk"
 
       - name: Apply SDK patches
         run: |
-          cd ../guildpass-sdk
+          cd "${{ github.workspace }}/../guildpass-sdk"
           git apply "${{ github.workspace }}/patches/guildpass-sdk.patch"
 
       - name: Install dependencies
