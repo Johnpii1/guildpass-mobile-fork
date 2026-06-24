@@ -1,0 +1,35 @@
+appId: xyz.guildpass.mobile
+---
+# E2E Test: Guild List and Detail Navigation
+# Validates: User can navigate to guilds list and view guild details
+
+- launchApp
+- tapOn:
+    id: "onboarding-get-started-button"
+- tapOn:
+    id: "wallet-address-input"
+- inputText: "0x1234567890123456789012345678901234567890"
+- tapOn:
+    id: "wallet-connect-button"
+- assertVisible:
+    id: "profile-connected"
+
+# Navigate to guilds list
+- tapOn:
+    id: "navigate-guilds-button"
+- assertVisible:
+    id: "guilds-screen"
+- assertVisible:
+    id: "guilds-list"
+
+# Tap on first guild card
+- tapOn:
+    text: "Alpha Guild"
+- assertVisible:
+    id: "guild-detail-screen"
+- assertVisible:
+    id: "guild-name"
+- assertVisible:
+    id: "membership-status-card"
+- assertVisible:
+    id: "guild-roles-list"

@@ -12,16 +12,16 @@ export default function Onboarding() {
 
   // GuildPass Mobile: Return evaluated JSX layout or callback response.
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white" testID="onboarding-screen">
       <View className="flex-1 px-6 justify-between py-12">
         <View className="items-center mt-12">
           <View className="w-24 h-24 bg-primary rounded-3xl items-center justify-center mb-8 shadow-lg">
             <Text className="text-white text-4xl font-bold">GP</Text>
           </View>
-          <Text className="text-3xl font-bold text-text text-center mb-4">
+          <Text className="text-3xl font-bold text-text text-center mb-4" testID="onboarding-title">
             Welcome to GuildPass
           </Text>
-          <Text className="text-lg text-text-muted text-center px-4">
+          <Text className="text-lg text-text-muted text-center px-4" testID="onboarding-subtitle">
             The decentralized gateway to your favorite Web3 communities and gated content.
           </Text>
         </View>
@@ -35,7 +35,7 @@ export default function Onboarding() {
             </Text>
           </View>
 
-          <Button title="Get Started" onPress={() => router.push("/profile")} />
+          <Button title="Get Started" onPress={() => router.push("/profile")} testID="onboarding-get-started-button" />
         </View>
       </View>
     </SafeAreaView>

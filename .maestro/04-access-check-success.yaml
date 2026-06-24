@@ -1,0 +1,39 @@
+appId: xyz.guildpass.mobile
+env:
+  MOCK_API_SUCCESS: true
+---
+# E2E Test: Access Check Success Path
+# Validates: User can perform an access check with successful result
+# Note: Requires mock API to return success response
+
+- launchApp
+- tapOn:
+    id: "onboarding-get-started-button"
+- tapOn:
+    id: "wallet-address-input"
+- inputText: "0x1234567890123456789012345678901234567890"
+- tapOn:
+    id: "wallet-connect-button"
+
+# Navigate to access check
+- tapOn:
+    id: "navigate-access-check-button"
+- assertVisible:
+    id: "access-check-screen"
+
+# Fill in access check form
+- tapOn:
+    id: "access-check-guild-id-input"
+- inputText: "guild_abc"
+- tapOn:
+    id: "access-check-resource-id-input"
+- inputText: "vip-door"
+
+# Submit access check
+- tapOn:
+    id: "check-access-button"
+
+# Wait for result
+- assertVisible:
+    id: "access-check-result"
+    timeout: 10000

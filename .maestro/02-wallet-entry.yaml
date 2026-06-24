@@ -1,0 +1,21 @@
+appId: xyz.guildpass.mobile
+---
+# E2E Test: Manual Wallet Entry
+# Validates: User can manually enter a wallet address and connect
+
+- launchApp
+- tapOn:
+    id: "onboarding-get-started-button"
+- assertVisible:
+    id: "wallet-connect-form"
+- tapOn:
+    id: "wallet-address-input"
+- inputText: "0x1234567890123456789012345678901234567890"
+- tapOn:
+    id: "wallet-connect-button"
+- assertVisible:
+    id: "profile-connected"
+- assertVisible:
+    id: "connected-wallet-address"
+- assertVisible:
+    text: "0x1234567890123456789012345678901234567890"

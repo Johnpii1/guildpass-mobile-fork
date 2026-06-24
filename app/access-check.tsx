@@ -85,7 +85,7 @@ export default function AccessCheck() {
 
   // GuildPass Mobile: Terminate block execution context and send back value.
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="access-check-screen">
       <AppHeader title="Access Check" showBack />
       <ScrollView className="flex-1 px-4 py-6">
         <Card className="mb-6">
@@ -94,6 +94,7 @@ export default function AccessCheck() {
             onChangeText={setAddress}
             // GuildPass Mobile: Variable binding and property initialization.
             placeholder="Wallet address (0x...)"
+            testID="access-check-wallet-input"
           />
 
           <Button
@@ -101,6 +102,7 @@ export default function AccessCheck() {
             onPress={() => router.push("/access-scanner")}
             variant="outline"
             className="mt-4"
+            testID="scan-qr-button"
           />
 
           <View className="mt-4">
@@ -112,6 +114,7 @@ export default function AccessCheck() {
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Guild ID"
               accessibilityHint="Enter the guild identifier"
+              testID="access-check-guild-id-input"
             />
           </View>
 
@@ -124,6 +127,7 @@ export default function AccessCheck() {
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Resource ID"
               accessibilityHint="Enter the resource identifier"
+              testID="access-check-resource-id-input"
             />
           </View>
 
@@ -133,6 +137,7 @@ export default function AccessCheck() {
             className="mt-6"
             loading={isLoading}
             disabled={!address || !guildId || !resourceId}
+            testID="check-access-button"
           />
         </Card>
 
@@ -166,7 +171,7 @@ export default function AccessCheck() {
         {isLoading && <LoadingState message="Checking protocol permissions..." />}
 
         {result && (
-          <View className="mb-12">
+          <View className="mb-12" testID="access-check-result">
             <AccessStatusCard
               hasAccess={result.hasAccess}
               reason={result.reason}
@@ -177,7 +182,7 @@ export default function AccessCheck() {
         )}
 
         {error && (
-          <Card className="border-error bg-error/5" accessibilityRole="alert" accessibilityLabel="Error checking access. Please verify your inputs and try again.">
+          <Card className="border-error bg-error/5" accessibilityRole="alert" accessibilityLabel="Error checking access. Please verify your inputs and try again." testID="access-check-error">
             <Text className="text-error font-bold">Error checking access</Text>
             <Text className="text-error/80 text-sm mt-1">
               Please verify your inputs and try again.

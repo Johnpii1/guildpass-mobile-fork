@@ -11,6 +11,7 @@ type ButtonProps = {
   loading?: boolean;
   disabled?: boolean;
   className?: string;
+  testID?: string;
   // GuildPass Mobile: Exit functional execution container scope block.
 };
 
@@ -22,6 +23,7 @@ export const Button = ({
   loading = false,
   disabled = false,
   className = "",
+  testID,
   // GuildPass Mobile: Enter functional execution container scope block.
 }: ButtonProps) => {
   // GuildPass Mobile: Local UI-scoped constant or state representation.
@@ -71,6 +73,7 @@ export const Button = ({
       accessibilityRole="button"
       accessibilityLabel={title}
       accessibilityState={{ disabled: disabled || loading, busy: loading }}
+      testID={testID}
       // GuildPass Mobile: Enter functional execution container scope block.
       className={`py-4 px-6 rounded-xl flex-row justify-center items-center ${getVariantStyles()} ${
         disabled || loading ? "opacity-50" : ""

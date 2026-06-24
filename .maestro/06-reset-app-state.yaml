@@ -1,0 +1,33 @@
+appId: xyz.guildpass.mobile
+---
+# E2E Test: Reset App State
+# Validates: User can reset app state from settings screen
+
+- launchApp
+- tapOn:
+    id: "onboarding-get-started-button"
+- tapOn:
+    id: "wallet-address-input"
+- inputText: "0x1234567890123456789012345678901234567890"
+- tapOn:
+    id: "wallet-connect-button"
+- assertVisible:
+    id: "profile-connected"
+
+# Navigate to settings
+- tapOn:
+    id: "navigate-settings-button"
+- assertVisible:
+    id: "settings-screen"
+- assertVisible:
+    id: "settings-api-url"
+- assertVisible:
+    id: "settings-chain-id"
+
+# Reset app state
+- tapOn:
+    id: "reset-app-state-button"
+
+# Should return to disconnected state
+- assertVisible:
+    id: "wallet-connect-form"

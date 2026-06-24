@@ -55,36 +55,37 @@ export default function GuildDetail() {
 
   // GuildPass Mobile: Return evaluated JSX layout or callback response.
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="guild-detail-screen">
       <AppHeader title={guild.name} showBack />
       <ScrollView className="flex-1 px-4 py-6">
         <Card className="mb-6">
-          <Text className="text-2xl font-bold text-text mb-2">{guild.name}</Text>
-          <Text className="text-text-muted mb-4">
+          <Text className="text-2xl font-bold text-text mb-2" testID="guild-name">{guild.name}</Text>
+          <Text className="text-text-muted mb-4" testID="guild-description">
             {guild.description || "No description provided."}
           </Text>
 
           <View className="border-t border-border pt-4">
             <View className="flex-row justify-between mb-2">
               <Text className="text-text-muted">Owner</Text>
-              <Text className="text-text font-medium" numberOfLines={1}>
+              <Text className="text-text font-medium" numberOfLines={1} testID="guild-owner">
                 {guild.ownerAddress.substring(0, 6)}...{guild.ownerAddress.substring(38)}
               </Text>
             </View>
             <View className="flex-row justify-between">
               <Text className="text-text-muted">Chain ID</Text>
-              <Text className="text-text font-medium">{guild.chainId}</Text>
+              <Text className="text-text font-medium" testID="guild-chain-id">{guild.chainId}</Text>
             </View>
           </View>
         </Card>
 
         <View className="mb-6">
           <Text className="text-lg font-bold text-text mb-3">Your Membership</Text>
-          <Card className={membership?.isActive ? "border-success/30" : ""} accessibilityLabel={`Membership status: ${membership?.isActive ? "Active Member" : "Not a Member"}`}>
+          <Card className={membership?.isActive ? "border-success/30" : ""} accessibilityLabel={`Membership status: ${membership?.isActive ? "Active Member" : "Not a Member"}`} testID="membership-status-card">
             <View className="flex-row justify-between items-center">
               <Text className="text-text font-medium">Status</Text>
               <Text
                 className={`font-bold ${membership?.isActive ? "text-success" : "text-text-muted"}`}
+                testID="membership-status-text"
               >
                 {membership?.isActive ? "Active Member" : "Not a Member"}
               </Text>
@@ -94,7 +95,7 @@ export default function GuildDetail() {
 
         <View className="mb-6">
           <Text className="text-lg font-bold text-text mb-3">Available Roles</Text>
-          <View className="flex-row flex-wrap">
+          <View className="flex-row flex-wrap" testID="guild-roles-list">
             {roles && roles.length > 0 ? (
               roles.map((role) => <RoleBadge key={role.id} name={role.name} />)
             ) : (

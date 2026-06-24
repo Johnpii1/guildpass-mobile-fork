@@ -25,22 +25,22 @@ export default function Settings() {
 
   // GuildPass Mobile: Terminate block execution context and send back value.
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="settings-screen">
       <AppHeader title="Settings" showBack />
       <ScrollView className="flex-1 px-4 py-6">
         <Text className="text-lg font-bold text-text mb-3">Protocol Configuration</Text>
         <Card className="mb-6">
           <View className="flex-row justify-between py-2 border-b border-border">
             <Text className="text-text-muted">API URL</Text>
-            <Text className="text-text font-medium">{apiUrl}</Text>
+            <Text className="text-text font-medium" testID="settings-api-url">{apiUrl}</Text>
           </View>
           <View className="flex-row justify-between py-2 border-b border-border">
             <Text className="text-text-muted">Default Chain ID</Text>
-            <Text className="text-text font-medium">{chainId}</Text>
+            <Text className="text-text font-medium" testID="settings-chain-id">{chainId}</Text>
           </View>
           <View className="flex-row justify-between py-2">
             <Text className="text-text-muted">SDK Version</Text>
-            <Text className="text-text font-medium">0.1.0-mvp</Text>
+            <Text className="text-text font-medium" testID="settings-sdk-version">0.1.0-mvp</Text>
           </View>
         </Card>
 
@@ -55,6 +55,7 @@ export default function Settings() {
             onPress={disconnect}
             variant="danger"
             disabled={!isConnected}
+            testID="reset-app-state-button"
           />
         </Card>
 
