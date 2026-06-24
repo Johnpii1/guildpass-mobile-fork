@@ -25,7 +25,7 @@ A single `validateAndNormalizeAddress` utility (`src/lib/walletValidation.ts`) i
 
 ## Linked Issue
 
-closes #4
+closes #26
 
 ## Type of Change
 
@@ -89,4 +89,4 @@ Note: `tests/api.test.ts` and `tests/components.test.tsx` fail with pre-existing
 
 The `connectManually` return type changed from `void` to `{ success: boolean; error?: string }`. All callers in `profile.tsx` have been updated. The Zustand store's `setWalletAddress` type signature is unchanged — it still accepts `string` but now silently ignores invalid values (returns early). This is intentional: the store is a defensive last line of defence; UI-level callers should always go through `connectManually` to get actionable error messages.
 
-closes #4
+closes issue #26
