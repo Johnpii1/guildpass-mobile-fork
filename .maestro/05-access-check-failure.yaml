@@ -1,0 +1,39 @@
+appId: xyz.guildpass.mobile
+env:
+  MOCK_API_FAILURE: true
+---
+# E2E Test: Access Check Failure Path
+# Validates: User sees appropriate error when access check fails
+# Note: Requires mock API to return error response
+
+- launchApp
+- tapOn:
+    id: "onboarding-get-started-button"
+- tapOn:
+    id: "wallet-address-input"
+- inputText: "0x0000000000000000000000000000000000000000"
+- tapOn:
+    id: "wallet-connect-button"
+
+# Navigate to access check
+- tapOn:
+    id: "navigate-access-check-button"
+- assertVisible:
+    id: "access-check-screen"
+
+# Fill in access check form with invalid data
+- tapOn:
+    id: "access-check-guild-id-input"
+- inputText: "invalid_guild"
+- tapOn:
+    id: "access-check-resource-id-input"
+- inputText: "invalid_resource"
+
+# Submit access check
+- tapOn:
+    id: "check-access-button"
+
+# Wait for error
+- assertVisible:
+    id: "access-check-error"
+    timeout: 10000

@@ -1,0 +1,15 @@
+# Maestro Configuration for GuildPass Mobile E2E Tests
+# Learn more: https://maestro.mobile.dev/
+
+flows:
+  - 01-onboarding-to-profile.yaml
+  - 02-wallet-entry.yaml
+  - 03-guild-navigation.yaml
+  - 04-access-check-success.yaml
+  - 05-access-check-failure.yaml
+  - 06-reset-app-state.yaml
+
+env:
+  # Default test environment variables
+  API_URL: "https://api.guildpass.xyz"
+  CHAIN_ID: "8453"

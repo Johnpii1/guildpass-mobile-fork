@@ -71,7 +71,7 @@ export default function AccessCheck() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="access-check-screen">
       <AppHeader title="Access Check" showBack />
       <ScrollView className="flex-1 px-4 py-6">
         <Card className="mb-6">
@@ -87,6 +87,7 @@ export default function AccessCheck() {
             onPress={() => router.push("/access-scanner")}
             variant="outline"
             className="mt-4"
+            testID="scan-qr-button"
           />
 
           <View className="mt-4">
@@ -98,6 +99,7 @@ export default function AccessCheck() {
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Guild ID"
               accessibilityHint="Enter the guild identifier"
+              testID="access-check-guild-id-input"
             />
           </View>
 
@@ -110,6 +112,7 @@ export default function AccessCheck() {
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Resource ID"
               accessibilityHint="Enter the resource identifier"
+              testID="access-check-resource-id-input"
             />
           </View>
 

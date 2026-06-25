@@ -42,11 +42,11 @@ export default function Profile() {
 
   // GuildPass Mobile: Return evaluated JSX layout or callback response.
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="profile-screen">
       <AppHeader title="Profile" />
       <ScrollView className="flex-1 px-4 py-6">
         {!isConnected ? (
-          <View>
+          <View testID="wallet-connect-form">
             <Text className="text-2xl font-bold text-text mb-2">Connect Wallet</Text>
             <Text className="text-text-muted mb-8">
               // GuildPass Mobile: Local UI-scoped constant or state representation. Enter a wallet
@@ -62,8 +62,9 @@ export default function Profile() {
                   // GuildPass Mobile: Exit functional execution container scope block.
                 }}
                 error={error}
+                testID="wallet-address-input"
               />
-              <Button title="Continue" onPress={handleConnect} className="mt-6" />
+              <Button title="Continue" onPress={handleConnect} className="mt-6" testID="wallet-connect-button" />
             </Card>
           </View>
         ) : (
@@ -72,10 +73,10 @@ export default function Profile() {
 
             <Card className="mb-6">
               <Text className="text-text-muted text-sm mb-1">CONNECTED WALLET</Text>
-              <Text className="text-lg font-bold text-text mb-4" numberOfLines={1}>
+              <Text className="text-lg font-bold text-text mb-4" numberOfLines={1} testID="connected-wallet-address">
                 {walletAddress}
               </Text>
-              <Button title="Disconnect" onPress={disconnect} variant="outline" />
+              <Button title="Disconnect" onPress={disconnect} variant="outline" testID="wallet-disconnect-button" />
             </Card>
 
             <View>
@@ -86,6 +87,7 @@ export default function Profile() {
                 accessibilityRole="link"
                 accessibilityLabel="My Guilds"
                 accessibilityHint="View your memberships and roles"
+                testID="navigate-guilds-button"
               >
                 <Card className="flex-row justify-between items-center">
                   <View>
@@ -103,6 +105,7 @@ export default function Profile() {
                 accessibilityRole="link"
                 accessibilityLabel="Access Check"
                 accessibilityHint="Verify resource access status"
+                testID="navigate-access-check-button"
               >
                 <Card className="flex-row justify-between items-center">
                   <View>
@@ -120,6 +123,7 @@ export default function Profile() {
                 accessibilityRole="link"
                 accessibilityLabel="App Settings"
                 accessibilityHint="Configuration and info"
+                testID="navigate-settings-button"
               >
                 <Card className="flex-row justify-between items-center">
                   <View>

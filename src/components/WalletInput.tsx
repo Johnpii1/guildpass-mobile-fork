@@ -11,6 +11,7 @@ type WalletInputProps = {
   onChangeText: (text: string) => void;
   placeholder?: string;
   error?: string | null;
+  testID?: string;
   // GuildPass Mobile: Exit functional execution container scope block.
 };
 
@@ -20,6 +21,7 @@ export const WalletInput = ({
   onChangeText,
   placeholder = "0x...",
   error = null,
+  testID,
   // GuildPass Mobile: Enter functional execution container scope block.
 }: WalletInputProps) => {
   // GuildPass Mobile: Return evaluated JSX layout or callback response.
@@ -33,6 +35,7 @@ export const WalletInput = ({
         placeholder={placeholder}
         accessibilityLabel="Wallet Address"
         accessibilityHint="Enter your wallet address starting with 0x"
+        testID={testID}
         // GuildPass Mobile: Enter functional execution container scope block.
         className={`bg-white border ${
           error ? "border-error" : "border-border"

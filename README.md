@@ -93,6 +93,8 @@ The application is built on a robust, feature-driven foundation designed for lon
 
 ## 🧪 Testing
 
+### Unit & Integration Tests
+
 ```bash
 # Run all tests (watch mode)
 pnpm test
@@ -109,6 +111,47 @@ pnpm lint
 # Format
 pnpm format
 ```
+
+### End-to-End Tests
+
+GuildPass Mobile uses [Maestro](https://maestro.mobile.dev/) for E2E testing. Maestro provides deterministic, device-level testing for Expo apps.
+
+**Install Maestro:**
+```bash
+# macOS/Linux
+curl -Ls "https://get.maestro.mobile.dev" | bash
+
+# Windows (using WSL)
+wsl
+curl -Ls "https://get.maestro.mobile.dev" | bash
+```
+
+**Run E2E Tests:**
+```bash
+# 1. Build the app for your platform
+npx expo run:ios    # or npx expo run:android
+
+# 2. Start development server (in separate terminal)
+pnpm start
+
+# 3. Run all E2E tests
+maestro test .maestro/
+
+# 4. Run specific test
+maestro test .maestro/01-onboarding-to-profile.yaml
+
+# 5. Interactive debugging
+maestro studio
+```
+
+**E2E Test Coverage:**
+- ✅ Onboarding to profile navigation
+- ✅ Manual wallet entry
+- ✅ Guild list and guild detail navigation
+- ✅ Access check success and failure paths
+- ✅ Reset app state
+
+See [`.maestro/README.md`](.maestro/README.md) for detailed E2E testing documentation, troubleshooting, and best practices.
 
 ## 🚀 Build & Release
 

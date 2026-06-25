@@ -1,0 +1,16 @@
+appId: xyz.guildpass.mobile
+---
+# E2E Test: Onboarding to Profile Navigation
+# Validates: User can complete onboarding and navigate to profile screen
+
+- launchApp
+- assertVisible:
+    id: "onboarding-screen"
+- assertVisible:
+    text: "Welcome to GuildPass"
+- tapOn:
+    id: "onboarding-get-started-button"
+- assertVisible:
+    id: "profile-screen"
+- assertVisible:
+    text: "Connect Wallet"

@@ -7,3 +7,7 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+
+# Maestro E2E test results and recordings
+test-results/
+*.mp4

@@ -38,12 +38,13 @@ export default function Guilds() {
 
   // GuildPass Mobile: Terminate block execution context and send back value.
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background" testID="guilds-screen">
       <AppHeader title="My Guilds" showBack />
       <FlatList
         data={exampleGuilds}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ padding: 16 }}
+        testID="guilds-list"
         renderItem={({ item }) => (
           <GuildCard
             name={item.name}
