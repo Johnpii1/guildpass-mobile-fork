@@ -1,35 +1,21 @@
-// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-// GuildPass Mobile: Import package module dependencies.
 import React, { useState } from "react";
-// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { useRouter } from "expo-router";
-// GuildPass Mobile: Import package module dependencies.
 import { useWallet } from "../src/features/wallet/useWallet";
-// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { AppHeader } from "../src/components/AppHeader";
-// GuildPass Mobile: Import package module dependencies.
 import { Card } from "../src/components/Card";
-// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { WalletInput } from "../src/components/WalletInput";
-// GuildPass Mobile: Import package module dependencies.
 import { Button } from "../src/components/Button";
 import { StaleDataBanner } from "../src/components/StaleDataBanner";
 import { useNetworkStatus } from "../src/features/offline/useNetworkStatus";
 
-// GuildPass Mobile: Exported screen, component definition, or state hooks.
 export default function Profile() {
-  // GuildPass Mobile: Variable binding and property initialization.
   const router = useRouter();
-  // GuildPass Mobile: Local UI-scoped constant or state representation.
   const { walletAddress, isConnected, connectManually, disconnect } = useWallet();
   const { isOffline } = useNetworkStatus();
-  // GuildPass Mobile: Variable binding and property initialization.
   const [inputValue, setInputValue] = useState(walletAddress || "");
-  // GuildPass Mobile: Local UI-scoped constant or state representation.
   const [error, setError] = useState<string | null>(null);
 
-  // GuildPass Mobile: Variable binding and property initialization.
   const handleConnect = () => {
     const { success, error: validationError } = connectManually(inputValue);
     if (!success) {
@@ -40,7 +26,6 @@ export default function Profile() {
     router.push("/guilds");
   };
 
-  // GuildPass Mobile: Return evaluated JSX layout or callback response.
   return (
     <View className="flex-1 bg-background" testID="profile-screen">
       <AppHeader title="Profile" />
@@ -49,22 +34,24 @@ export default function Profile() {
           <View testID="wallet-connect-form">
             <Text className="text-2xl font-bold text-text mb-2">Connect Wallet</Text>
             <Text className="text-text-muted mb-8">
-              // GuildPass Mobile: Local UI-scoped constant or state representation. Enter a wallet
               address to view your memberships and roles.
             </Text>
             <Card className="mb-8">
               <WalletInput
                 value={inputValue}
-                // GuildPass Mobile: Enter functional execution container scope block.
                 onChangeText={(text) => {
                   setInputValue(text);
                   setError(null);
-                  // GuildPass Mobile: Exit functional execution container scope block.
                 }}
                 error={error}
                 testID="wallet-address-input"
               />
-              <Button title="Continue" onPress={handleConnect} className="mt-6" testID="wallet-connect-button" />
+              <Button
+                title="Continue"
+                onPress={handleConnect}
+                className="mt-6"
+                testID="wallet-connect-button"
+              />
             </Card>
           </View>
         ) : (
@@ -73,10 +60,19 @@ export default function Profile() {
 
             <Card className="mb-6">
               <Text className="text-text-muted text-sm mb-1">CONNECTED WALLET</Text>
-              <Text className="text-lg font-bold text-text mb-4" numberOfLines={1} testID="connected-wallet-address">
+              <Text
+                className="text-lg font-bold text-text mb-4"
+                numberOfLines={1}
+                testID="connected-wallet-address"
+              >
                 {walletAddress}
               </Text>
-              <Button title="Disconnect" onPress={disconnect} variant="outline" testID="wallet-disconnect-button" />
+              <Button
+                title="Disconnect"
+                onPress={disconnect}
+                variant="outline"
+                testID="wallet-disconnect-button"
+              />
             </Card>
 
             <View>
@@ -139,5 +135,4 @@ export default function Profile() {
       </ScrollView>
     </View>
   );
-  // GuildPass Mobile: Exit functional execution container scope block.
 }

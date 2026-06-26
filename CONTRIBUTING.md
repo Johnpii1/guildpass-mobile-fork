@@ -116,6 +116,7 @@ pnpm test:run    # All tests must pass
 - Use NativeWind (Tailwind) classes — no `StyleSheet.create` for new UI unless justified.
 - New screens must handle loading, empty, and error states.
 - New business logic must have at least one Vitest unit test.
+- Avoid generated boilerplate comments that only restate imports, returns, variable bindings, or JSX structure. Keep comments for non-obvious domain rules, edge cases, TODOs with context, or implementation tradeoffs.
 - Do not introduce native modules that break Expo Go compatibility without prior discussion.
 
 ---
