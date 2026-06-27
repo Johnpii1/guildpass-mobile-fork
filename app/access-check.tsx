@@ -1,6 +1,5 @@
 import { View, Text, ScrollView, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
-// GuildPass Mobile: Pull in react-native, expo, or external state libraries.
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useWallet } from "../src/features/wallet/useWallet";
 import { useAccessCheck } from "../src/features/access/useAccessCheck";
@@ -29,17 +28,11 @@ export default function AccessCheck() {
     guildId: string;
     resourceId: string;
   } | null>(null);
-  // GuildPass Mobile: Local UI-scoped constant or state representation.
   const [addressError, setAddressError] = useState<string | null>(null);
 
   const checkParamsNonNull = checkParams ?? { walletAddress: "", guildId: "", resourceId: "" };
   const accessQuery = useAccessCheck(checkParamsNonNull);
-  const {
-    data: result,
-    isLoading,
-    error,
-    isPending,
-  } = accessQuery;
+  const { data: result, isLoading, error, isPending } = accessQuery;
   const staleState = useStaleQuery(accessQuery);
 
   useEffect(() => {
