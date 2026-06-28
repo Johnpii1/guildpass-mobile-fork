@@ -49,8 +49,8 @@ jobs:
       - name: Build iOS app
         run: |
           npx expo prebuild --platform ios --clean
-          xcodebuild -workspace ios/guildpassmobile.xcworkspace \
-            -scheme guildpassmobile \
+          xcodebuild -workspace ios/GuildPass.xcworkspace \
+            -scheme GuildPass \
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath ios/build \
@@ -63,7 +63,7 @@ jobs:
 
       - name: Install app on simulator
         run: |
-          xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/guildpassmobile.app
+          xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/GuildPass.app
 
       - name: Run Maestro E2E tests
         run: |
