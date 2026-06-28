@@ -54,11 +54,22 @@ jobs:
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath ios/build \
-            -destination 'platform=iOS Simulator,name=iPhone 15'
+            -destination 'generic/platform=iOS Simulator'
 
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 15" || true
+          SIMULATOR_NAME="$(
+            xcrun simctl list devices available |
+              awk -F '[()]' '/iPhone/ {print $1; exit}' |
+              sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+          )"
+          if [ -z "$SIMULATOR_NAME" ]; then
+            echo "No available iPhone simulator found"
+            exit 1
+          fi
+          echo "Booting $SIMULATOR_NAME"
+          xcrun simctl boot "$SIMULATOR_NAME" || true
+          xcrun simctl bootstatus "$SIMULATOR_NAME" -b
           xcrun simctl list devices
 
       - name: Install app on simulator
