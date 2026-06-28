@@ -11,8 +11,11 @@ import { Button } from "../src/components/Button";
 import { WalletInput } from "../src/components/WalletInput";
 import { AccessStatusCard } from "../src/components/AccessStatusCard";
 import { LoadingState } from "../src/components/LoadingState";
+import { AccessHistoryList } from "../src/components/AccessHistoryList";
+import { validateAndNormalizeAddress } from "../src/lib/walletValidation";
+import { useAccessHistoryStore } from "../src/features/access/accessHistory.store";
+import { useNetworkStatus } from "../src/features/offline/useNetworkStatus";
 import { StaleDataBanner } from "../src/components/StaleDataBanner";
-import { useStaleQuery } from "../src/features/offline/useStaleQuery";
 
 export default function AccessCheck() {
   const router = useRouter();
@@ -23,17 +26,32 @@ export default function AccessCheck() {
   const [resourceId, setResourceId] = useState("");
   const [scanError, setScanError] = useState<string | null>(null);
   const [scannedPayload, setScannedPayload] = useState<ParsedAccessQrPayload | null>(null);
-  const [checkParams, setCheckParams] = useState<{
-    walletAddress: string;
-    guildId: string;
-    resourceId: string;
-  } | null>(null);
   const [addressError, setAddressError] = useState<string | null>(null);
+  const { isOffline } = useNetworkStatus();
 
-  const checkParamsNonNull = checkParams ?? { walletAddress: "", guildId: "", resourceId: "" };
-  const accessQuery = useAccessCheck(checkParamsNonNull);
-  const { data: result, isLoading, error, isPending } = accessQuery;
-  const staleState = useStaleQuery(accessQuery);
+  const accessCheck = useAccessCheck();
+  const {
+    data: result,
+    error,
+    isPending,
+    mutate: runAccessCheck,
+    reset: resetAccessCheck,
+  } = accessCheck;
+  const hydrateHistory = useAccessHistoryStore((state) => state.hydrate);
+  const recordCheck = useAccessHistoryStore((state) => state.recordCheck);
+  const clearWalletHistory = useAccessHistoryStore((state) => state.clearWalletHistory);
+  const historyWallet = currentWallet || address;
+  const accessHistory = useAccessHistoryStore((state) => state.getHistoryForWallet(historyWallet));
+
+  useEffect(() => {
+    void hydrateHistory();
+  }, [hydrateHistory]);
+
+  const resetCompletedCheck = () => {
+    if (result || error) {
+      resetAccessCheck();
+    }
+  };
 
   useEffect(() => {
     const rawPayload = Array.isArray(qrPayload) ? qrPayload[0] : qrPayload;
@@ -50,29 +68,77 @@ export default function AccessCheck() {
       setAddress(parsedPayload.walletAddress ?? currentWallet ?? "");
       setScannedPayload(parsedPayload);
       setScanError(null);
-      setCheckParams(null);
+      setAddressError(null);
+      resetAccessCheck();
     } catch (error) {
       setScanError(error instanceof Error ? error.message : "Unable to read QR payload.");
       setScannedPayload(null);
+      resetAccessCheck();
     }
-  }, [currentWallet, qrPayload]);
+  }, [currentWallet, qrPayload, resetAccessCheck]);
+
+  const handleAddressChange = (nextAddress: string) => {
+    setAddress(nextAddress);
+    setAddressError(null);
+    resetCompletedCheck();
+  };
+
+  const handleGuildIdChange = (nextGuildId: string) => {
+    setGuildId(nextGuildId);
+    resetCompletedCheck();
+  };
+
+  const handleResourceIdChange = (nextResourceId: string) => {
+    setResourceId(nextResourceId);
+    resetCompletedCheck();
+  };
 
   const handleCheck = () => {
-    if (address && guildId && resourceId) {
-      setCheckParams({ walletAddress: address, guildId, resourceId });
+    const trimmedGuildId = guildId.trim();
+    const trimmedResourceId = resourceId.trim();
+
+    if (!address || !trimmedGuildId || !trimmedResourceId) {
+      return;
     }
+
+    const validation = validateAndNormalizeAddress(address);
+    if (!validation.valid) {
+      setAddressError(validation.error);
+      resetAccessCheck();
+      return;
+    }
+
+    const params = {
+      walletAddress: validation.address,
+      guildId: trimmedGuildId,
+      resourceId: trimmedResourceId,
+    };
+
+    setAddress(validation.address);
+    setAddressError(null);
+    resetAccessCheck();
+    runAccessCheck(params, {
+      onSuccess: (data) => {
+        void recordCheck({ ...params, result: data });
+      },
+      onError: (error) => {
+        void recordCheck({ ...params, error });
+      },
+    });
   };
 
   return (
     <View className="flex-1 bg-background" testID="access-check-screen">
       <AppHeader title="Access Check" showBack />
       <ScrollView className="flex-1 px-4 py-6">
+        {isOffline ? <StaleDataBanner reason="offline" cautionary /> : null}
         <Card className="mb-6">
           <WalletInput
             value={address}
-            onChangeText={setAddress}
+            onChangeText={handleAddressChange}
             placeholder="Wallet address (0x...)"
             error={addressError}
+            testID="access-check-wallet-input"
           />
 
           <Button
@@ -87,7 +153,7 @@ export default function AccessCheck() {
             <Text className="text-text-muted mb-2 font-medium">Guild ID</Text>
             <TextInput
               value={guildId}
-              onChangeText={setGuildId}
+              onChangeText={handleGuildIdChange}
               placeholder="e.g. alpha-guild"
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Guild ID"
@@ -100,7 +166,7 @@ export default function AccessCheck() {
             <Text className="text-text-muted mb-2 font-medium">Resource ID</Text>
             <TextInput
               value={resourceId}
-              onChangeText={setResourceId}
+              onChangeText={handleResourceIdChange}
               placeholder="e.g. secret-channel"
               className="bg-white border border-border rounded-xl p-4 text-text text-lg"
               accessibilityLabel="Resource ID"
@@ -113,8 +179,8 @@ export default function AccessCheck() {
             title="Check Access"
             onPress={handleCheck}
             className="mt-6"
-            loading={isLoading}
-            disabled={!address || !guildId || !resourceId || !!addressError}
+            loading={isPending}
+            disabled={!address || !guildId || !resourceId || !!addressError || isOffline}
           />
         </Card>
 
@@ -145,17 +211,10 @@ export default function AccessCheck() {
           </Card>
         )}
 
-        {isLoading && isPending && <LoadingState message="Checking protocol permissions..." />}
+        {isPending && <LoadingState message="Checking protocol permissions..." />}
 
         {result && (
           <View className="mb-12">
-            {staleState.isStale && staleState.reason ? (
-              <StaleDataBanner
-                reason={staleState.reason}
-                lastSyncedAt={staleState.lastSyncedAt}
-                cautionary
-              />
-            ) : null}
             <AccessStatusCard
               hasAccess={result.hasAccess}
               reason={result.reason}
@@ -177,6 +236,13 @@ export default function AccessCheck() {
             </Text>
           </Card>
         )}
+
+        <AccessHistoryList
+          entries={accessHistory}
+          onClear={() => {
+            void clearWalletHistory(historyWallet);
+          }}
+        />
       </ScrollView>
     </View>
   );

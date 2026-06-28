@@ -1,15 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { guildPassClient } from "../../lib/guildpassClient";
 
-export const useAccessCheck = (params: {
+export type AccessCheckParams = {
   walletAddress: string;
   guildId: string;
   resourceId: string;
-}) => {
-  return useQuery({
-    queryKey: ["access-check", params],
-    queryFn: () => guildPassClient.access.checkAccess(params),
-    enabled: !!params.walletAddress && !!params.guildId && !!params.resourceId,
+};
+
+export type AccessCheckResult = {
+  hasAccess: boolean;
+  reason?: string;
+  matchedRoles: string[];
+  requiredRoles: string[];
+};
+
+export const useAccessCheck = () => {
+  return useMutation<AccessCheckResult, Error, AccessCheckParams>({
+    mutationKey: ["access-check"],
+    mutationFn: (params: AccessCheckParams) =>
+      guildPassClient.access.checkAccess(params) as Promise<AccessCheckResult>,
     networkMode: "offlineFirst",
   });
 };

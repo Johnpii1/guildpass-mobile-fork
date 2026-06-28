@@ -1,5 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import React from "react";
+import TestRenderer, { type ReactTestRenderer } from "react-test-renderer";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { useCameraPermissions } from "expo-camera";
+import AccessScanner from "../app/access-scanner";
 
 vi.mock("react-native", () => ({
   View: "View",
@@ -9,16 +12,18 @@ vi.mock("react-native", () => ({
   TouchableOpacity: "TouchableOpacity",
   ActivityIndicator: "ActivityIndicator",
   SafeAreaView: "SafeAreaView",
-  StyleSheet: { create: (s) => s },
+  StyleSheet: { create: (styles: Record<string, unknown>) => styles },
 }));
 
-const mockReplace = vi.fn();
-const mockBack = vi.fn();
+const routerMocks = vi.hoisted(() => ({
+  replace: vi.fn(),
+  back: vi.fn(),
+}));
 
 vi.mock("expo-router", () => ({
   useRouter: () => ({
-    replace: mockReplace,
-    back: mockBack,
+    replace: routerMocks.replace,
+    back: routerMocks.back,
   }),
 }));
 
@@ -29,31 +34,13 @@ vi.mock("expo-camera", () => ({
 vi.mock("expo-camera/legacy", () => ({
   Camera: () => null,
   CameraType: { back: "back" },
-  BarCodeScanningResult: {},
-}));
-
-vi.mock("../src/components/AppHeader", () => ({
-  AppHeader: ({ title }: { title: string }) => null,
-}));
-
-vi.mock("../src/components/Button", () => ({
-  Button: ({ title, onPress }: { title: string; onPress: () => void }) => null,
-}));
-
-vi.mock("../src/components/Card", () => ({
-  Card: ({ children, className }: { children: React.ReactNode; className?: string }) => null,
 }));
 
 vi.mock("../src/features/access/qrPayload", () => ({
   parseAccessQrPayload: vi.fn(),
 }));
 
-// eslint-disable-next-line import/first
-import { render } from "@testing-library/react-native";
-// eslint-disable-next-line import/first
-import { useCameraPermissions } from "expo-camera";
-// eslint-disable-next-line import/first
-import AccessScanner from "../app/access-scanner";
+const screenText = (renderer: ReactTestRenderer) => JSON.stringify(renderer.toJSON());
 
 describe("AccessScanner", () => {
   beforeEach(() => {
@@ -63,8 +50,9 @@ describe("AccessScanner", () => {
   it("shows loading state while checking permission", () => {
     vi.mocked(useCameraPermissions).mockReturnValue([null, vi.fn()]);
 
-    const { getByText } = render(<AccessScanner />);
-    expect(getByText("Checking camera permission...")).toBeDefined();
+    const renderer = TestRenderer.create(<AccessScanner />);
+
+    expect(screenText(renderer)).toContain("Checking camera permission...");
   });
 
   it("shows permission request when camera not granted and can ask again", () => {
@@ -73,8 +61,9 @@ describe("AccessScanner", () => {
       vi.fn(),
     ]);
 
-    const { getByText } = render(<AccessScanner />);
-    expect(getByText("Allow Camera Access")).toBeDefined();
+    const renderer = TestRenderer.create(<AccessScanner />);
+
+    expect(screenText(renderer)).toContain("Allow Camera Access");
   });
 
   it("shows permanent denial message when camera denied and cannot ask again", () => {
@@ -83,8 +72,11 @@ describe("AccessScanner", () => {
       vi.fn(),
     ]);
 
-    const { getByText } = render(<AccessScanner />);
-    expect(getByText(/Enable camera access in your device settings/)).toBeDefined();
+    const renderer = TestRenderer.create(<AccessScanner />);
+
+    expect(screenText(renderer)).toContain(
+      "Enable camera access in your device settings to scan QR codes.",
+    );
   });
 
   it("shows scanner view when permission is granted", () => {
@@ -93,7 +85,8 @@ describe("AccessScanner", () => {
       vi.fn(),
     ]);
 
-    const { getByText } = render(<AccessScanner />);
-    expect(getByText("Point your camera at a GuildPass access QR code.")).toBeDefined();
+    const renderer = TestRenderer.create(<AccessScanner />);
+
+    expect(screenText(renderer)).toContain("Point your camera at a GuildPass access QR code.");
   });
 });
