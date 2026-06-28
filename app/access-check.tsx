@@ -47,6 +47,12 @@ export default function AccessCheck() {
     void hydrateHistory();
   }, [hydrateHistory]);
 
+  useEffect(() => {
+    setAddress(currentWallet || "");
+    setAddressError(null);
+    resetAccessCheck();
+  }, [currentWallet, resetAccessCheck]);
+
   const resetCompletedCheck = () => {
     if (result || error) {
       resetAccessCheck();
