@@ -20,8 +20,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
+
+      - name: Checkout SDK
+        run: |
+          git clone --depth 1 https://github.com/Adamantine-Guild/guildpass-sdk.git "${{ github.workspace }}/../guildpass-sdk"
+
+      - name: Apply SDK patches
+        run: |
+          cd "${{ github.workspace }}/../guildpass-sdk"
+          git apply "${{ github.workspace }}/patches/guildpass-sdk.patch"
 
       - name: Install dependencies
         run: npm ci
@@ -40,21 +49,32 @@ jobs:
       - name: Build iOS app
         run: |
           npx expo prebuild --platform ios --clean
-          xcodebuild -workspace ios/guildpassmobile.xcworkspace \
-            -scheme guildpassmobile \
+          xcodebuild -workspace ios/GuildPass.xcworkspace \
+            -scheme GuildPass \
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath ios/build \
-            -destination 'platform=iOS Simulator,name=iPhone 15'
+            -destination 'generic/platform=iOS Simulator'
 
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 15" || true
+          SIMULATOR_NAME="$(
+            xcrun simctl list devices available |
+              awk -F '[()]' '/iPhone/ {print $1; exit}' |
+              sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+          )"
+          if [ -z "$SIMULATOR_NAME" ]; then
+            echo "No available iPhone simulator found"
+            exit 1
+          fi
+          echo "Booting $SIMULATOR_NAME"
+          xcrun simctl boot "$SIMULATOR_NAME" || true
+          xcrun simctl bootstatus "$SIMULATOR_NAME" -b
           xcrun simctl list devices
 
       - name: Install app on simulator
         run: |
-          xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/guildpassmobile.app
+          xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/GuildPass.app
 
       - name: Run Maestro E2E tests
         run: |
@@ -86,8 +106,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
+
+      - name: Checkout SDK
+        run: |
+          git clone --depth 1 https://github.com/Adamantine-Guild/guildpass-sdk.git "${{ github.workspace }}/../guildpass-sdk"
+
+      - name: Apply SDK patches
+        run: |
+          cd "${{ github.workspace }}/../guildpass-sdk"
+          git apply "${{ github.workspace }}/patches/guildpass-sdk.patch"
 
       - name: Install dependencies
         run: npm ci
@@ -95,8 +124,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
       - name: Install Maestro
         run: |
