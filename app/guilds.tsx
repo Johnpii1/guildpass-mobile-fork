@@ -15,8 +15,6 @@ export default function Guilds() {
   const { walletAddress } = useWallet();
   const { getMembership } = useMembership(walletAddress);
 
-  // In a real app, you would fetch all guilds.
-  // For MVP, we'll show a few example guilds that the user can explore.
   const exampleGuilds = [
     { id: "guild_abc", name: "Alpha Guild", isActive: true, roleCount: 3 },
     { id: "guild_xyz", name: "Beta Community", isActive: true, roleCount: 5 },

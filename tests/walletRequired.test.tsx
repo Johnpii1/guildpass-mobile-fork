@@ -43,14 +43,12 @@ describe("WalletRequired", () => {
         </WalletRequired>
       );
     });
-
     expect(JSON.stringify(tree.toJSON())).toContain("Protected content");
   });
 
   it("returns null when store is not yet hydrated", () => {
     mockIsConnected.mockReturnValue(false);
     mockIsHydrated.mockReturnValue(false);
-
     let tree: any;
     act(() => {
       tree = TestRenderer.create(
@@ -59,14 +57,12 @@ describe("WalletRequired", () => {
         </WalletRequired>
       );
     });
-
     expect(tree.toJSON()).toBeNull();
   });
 
   it("redirects to /profile when disconnected and redirect=true", () => {
     mockIsConnected.mockReturnValue(false);
     mockIsHydrated.mockReturnValue(true);
-
     act(() => {
       TestRenderer.create(
         <WalletRequired redirect={true}>
@@ -74,14 +70,12 @@ describe("WalletRequired", () => {
         </WalletRequired>
       );
     });
-
     expect(mockReplace).toHaveBeenCalledWith("/profile");
   });
 
   it("shows connect-wallet prompt when disconnected and redirect=false", () => {
     mockIsConnected.mockReturnValue(false);
     mockIsHydrated.mockReturnValue(true);
-
     let renderer: any;
     act(() => {
       renderer = TestRenderer.create(
@@ -90,7 +84,6 @@ describe("WalletRequired", () => {
         </WalletRequired>
       );
     });
-
     expect(renderer.root.findByProps({ testID: "wallet-required-prompt" })).toBeDefined();
     expect(renderer.root.findByProps({ testID: "wallet-required-connect" })).toBeDefined();
     expect(mockReplace).not.toHaveBeenCalled();

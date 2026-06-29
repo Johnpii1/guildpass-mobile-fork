@@ -6,17 +6,9 @@ import { Button } from "./Button";
 
 interface WalletRequiredProps {
   children: React.ReactNode;
-  /**
-   * When true (default), redirects to /profile if wallet is not connected.
-   * When false, renders an inline connect-wallet prompt instead.
-   */
   redirect?: boolean;
 }
 
-/**
- * Route guard that ensures a wallet is connected before rendering
- * wallet-scoped content. Redirects to /profile or shows a connect prompt.
- */
 export function WalletRequired({
   children,
   redirect = true,
@@ -30,7 +22,6 @@ export function WalletRequired({
     }
   }, [isHydrated, isConnected, redirect, router]);
 
-  // Wait for store hydration to avoid flash of wrong state
   if (!isHydrated) {
     return null;
   }
