@@ -28,6 +28,8 @@ vi.mock("expo-router", () => ({
 }));
 
 vi.mock("expo-camera", () => ({
+  Camera: () => null,
+  CameraType: { back: "back", front: "front" },
   useCameraPermissions: vi.fn(),
 }));
 

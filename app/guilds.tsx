@@ -1,24 +1,35 @@
 import { View, FlatList } from "react-native";
 import { useRouter } from "expo-router";
-import { useWallet } from "../src/features/wallet/useWallet";
-import { useMembership } from "../src/features/membership/useMembership";
 import { AppHeader } from "../src/components/AppHeader";
 import { GuildCard } from "../src/components/GuildCard";
-import { LoadingState } from "../src/components/LoadingState";
-import { ErrorState } from "../src/components/ErrorState";
 import { EmptyState } from "../src/components/EmptyState";
 import { WalletRequired } from "../src/components/WalletRequired";
 import React from "react";
 
 export default function Guilds() {
   const router = useRouter();
-  const { walletAddress } = useWallet();
-  const { getMembership } = useMembership(walletAddress);
-
   const exampleGuilds = [
-    { id: "guild_abc", name: "Alpha Guild", isActive: true, roleCount: 3 },
-    { id: "guild_xyz", name: "Beta Community", isActive: true, roleCount: 5 },
-    { id: "guild_123", name: "Gamma DAO", isActive: false, roleCount: 2 },
+    {
+      id: "guild_abc",
+      name: "Alpha Guild",
+      isActive: true,
+      roleCount: 3,
+      assignedRoles: ["Admin", "Contributor"],
+    },
+    {
+      id: "guild_xyz",
+      name: "Beta Community",
+      isActive: true,
+      roleCount: 5,
+      assignedRoles: ["Moderator", "Member"],
+    },
+    {
+      id: "guild_123",
+      name: "Gamma DAO",
+      isActive: false,
+      roleCount: 2,
+      assignedRoles: ["Member"],
+    },
   ];
 
   return (
@@ -36,6 +47,7 @@ export default function Guilds() {
               id={item.id}
               isActive={item.isActive}
               roleCount={item.roleCount}
+              assignedRoles={item.assignedRoles}
               onPress={() => router.push(`/guilds/${item.id}`)}
             />
           )}
