@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RoleBadge > matches the role badge snapshot 1`] = `
+<View
+  accessibilityLabel="Role: Contributor. Contributor tier"
+  className="flex-row items-center border px-3 py-1.5 rounded-full mr-2 mb-2 bg-primary/10 border-primary/30"
+  testID="role-badge"
+>
+  <Text
+    accessibilityElementsHidden={true}
+    className="text-xs font-bold mr-1 text-primary"
+    importantForAccessibility="no-hide-descendants"
+  >
+    +
+  </Text>
+  <Text
+    className="font-semibold text-sm text-primary"
+  >
+    Contributor
+  </Text>
+</View>
+`;

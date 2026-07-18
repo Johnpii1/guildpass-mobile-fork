@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { CameraView, useCameraPermissions } from "expo-camera";
-import type { BarcodeScanningResult } from "expo-camera";
+import { Camera, CameraType, useCameraPermissions } from "expo-camera";
+import type { BarCodeScanningResult } from "expo-camera";
 import { AppHeader } from "../src/components/AppHeader";
 import { Button } from "../src/components/Button";
 import { Card } from "../src/components/Card";
@@ -14,7 +14,7 @@ export default function AccessScanner() {
   const [hasScanned, setHasScanned] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleBarcodeScanned = ({ data }: BarcodeScanningResult) => {
+  const handleBarcodeScanned = ({ data }: BarCodeScanningResult) => {
     if (hasScanned) {
       return;
     }
@@ -78,11 +78,11 @@ export default function AccessScanner() {
     <View className="flex-1 bg-background">
       <AppHeader title="Scan Access QR" showBack />
       <View className="flex-1">
-        <CameraView
+        <Camera
           style={{ flex: 1 }}
-          facing="back"
-          onBarcodeScanned={hasScanned ? undefined : handleBarcodeScanned}
-          barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+          type={CameraType.back}
+          onBarCodeScanned={hasScanned ? undefined : handleBarcodeScanned}
+          barCodeScannerSettings={{ barCodeTypes: ["qr"] }}
         />
 
         <View className="absolute left-4 right-4 bottom-8">

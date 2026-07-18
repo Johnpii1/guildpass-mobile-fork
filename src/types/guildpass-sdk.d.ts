@@ -18,12 +18,26 @@ declare module "@guildpass/sdk" {
       getMembership(params: { walletAddress: string; guildId: string }): Promise<any>;
     };
     access: {
-      checkAccess(params: { walletAddress: string; guildId: string; resourceId: string }): Promise<any>;
+      checkAccess(params: {
+        walletAddress: string;
+        guildId: string;
+        resourceId: string;
+      }): Promise<any>;
     };
   }
 }
 
 declare module "expo-camera" {
+  import * as React from "react";
+  export class Camera extends React.Component<any, any> {}
+  export enum CameraType {
+    back = "back",
+    front = "front",
+  }
+  export interface BarCodeScanningResult {
+    type: string;
+    data: string;
+  }
   export function useCameraPermissions(options?: any): any;
 }
 
@@ -32,7 +46,7 @@ declare module "expo-camera/legacy" {
   export class Camera extends React.Component<any, any> {}
   export enum CameraType {
     back = "back",
-    front = "front"
+    front = "front",
   }
   export interface BarCodeScanningResult {
     type: string;

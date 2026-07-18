@@ -6,7 +6,9 @@ import { useAccessHistoryStore } from "../features/access/accessHistory.store";
 
 export async function resetAppState(): Promise<void> {
   useWalletStore.getState().disconnect();
+  await useWalletStore.persist.clearStorage();
   await useSessionStore.getState().endSession();
+  await useSessionStore.persist.clearStorage();
   await useAccessHistoryStore.getState().clearAllHistory();
   queryClient.clear();
   await asyncStoragePersister.removeClient();
